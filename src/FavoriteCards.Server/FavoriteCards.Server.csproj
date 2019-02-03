@@ -2,7 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TypeScriptToolsVersion>3.2</TypeScriptToolsVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Scripts\declarations\Microsoft.JSInterop.d.ts" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FavoriteCards.App\FavoriteCards.App.csproj" />

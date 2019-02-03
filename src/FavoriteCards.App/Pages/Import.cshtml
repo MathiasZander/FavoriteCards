@@ -1,0 +1,9 @@
+﻿@page "/import"
+@inherits ImportModel
+
+<input type="file" class="form-control-file" onchange="FavoriteCards.handleFileSelect(this.files);" />
+
+@if (Deck.Cards.Any())
+{
+    <h6>@Deck.Cards.Count imported</h6>
+}

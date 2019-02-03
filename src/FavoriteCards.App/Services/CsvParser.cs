@@ -8,11 +8,15 @@ namespace FavoriteCards.App.Services
 {
     public class CsvParser
     {
-        public Deck Parse(string[] lines)
+        public Deck Parse(string csv)
         {
             var deck = new Deck();
 
-            foreach (var line in lines)
+            StringReader stringReader = new StringReader(csv);
+
+            var line = stringReader.ReadLine();
+
+            while (line != null)
             {
                 var card = new Card();
 
@@ -23,7 +27,9 @@ namespace FavoriteCards.App.Services
 
                 card.Front = cells[2];
                 card.Back = cells[3];
-                deck.Cards.Add(card);               
+                deck.Cards.Add(card);
+
+                line = stringReader.ReadLine();
             }
 
             return deck;

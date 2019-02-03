@@ -9,7 +9,7 @@ namespace FavoriteCards.App
         public void ConfigureServices(IServiceCollection services)
         {
             // Example of a data service
-            services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<CsvParser>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
