@@ -1,4 +1,6 @@
+using FavoriteCards.App.Services;
 using System;
+using System.IO;
 using Xunit;
 
 namespace FavoriteCards.Tests
@@ -8,7 +10,13 @@ namespace FavoriteCards.Tests
         [Fact]
         public void Test1()
         {
+            var parser = new CsvParser();
+            var lines = File.ReadAllLines("TestData/Export.csv");
 
+
+            var result = parser.Parse(lines);
+
+            Assert.Equal("Englisch", result.FrontName);
         }
     }
 }
