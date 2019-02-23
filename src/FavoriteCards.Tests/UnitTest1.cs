@@ -1,4 +1,5 @@
 using FavoriteCards.App.Services;
+using FluentAssertions;
 using System;
 using System.IO;
 using Xunit;
@@ -11,12 +12,14 @@ namespace FavoriteCards.Tests
         public void Test1()
         {
             var parser = new CsvParser();
-            var lines = File.ReadAllLines("TestData/Export.csv");
+            var lines = File.ReadAllText("TestData/Export.csv");
 
 
             var result = parser.Parse(lines);
 
-            Assert.Equal("Englisch", result.FrontName);
+            result.FrontName.Should().Equals("Englisch");
+            result.Cards.Should().Contain(c => c.Front == "coincidence");
+            result.Cards.Should().Contain(c => c.Front == "vain");
         }
     }
 }
