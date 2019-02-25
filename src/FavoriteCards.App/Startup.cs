@@ -1,6 +1,6 @@
+using FavoriteCards.Business.Services;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using FavoriteCards.App.Services;
 
 namespace FavoriteCards.App
 {

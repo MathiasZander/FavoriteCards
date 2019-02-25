@@ -1,5 +1,5 @@
-using FavoriteCards.App.Model;
-using FavoriteCards.App.Services;
+using FavoriteCards.Business.Model;
+using FavoriteCards.Business.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace FavoriteCards.App.Pages
@@ -7,7 +7,7 @@ namespace FavoriteCards.App.Pages
     public class LearnDeckModel : ComponentBase
     {
         private Card _card;
-        private bool front = true;
+        private bool _front = true;
 
         [Inject] public Learn Learn { get; set; }
 
@@ -15,14 +15,14 @@ namespace FavoriteCards.App.Pages
 
         public void Toggle()
         {
-            if (front)
+            if (_front)
                 Word = _card.Front;
             else
                 Word = _card.Back;
 
             StateHasChanged();
 
-            front = !front;
+            _front = !_front;
         }
 
         protected override void OnInit()

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using FavoriteCards.App.Model;
+using FavoriteCards.Business.Model;
 
-namespace FavoriteCards.App.Services
+namespace FavoriteCards.Business.Services
 {
     public class CsvParser
     {
@@ -26,23 +26,23 @@ namespace FavoriteCards.App.Services
             }
 
             var deck = new Deck();
-            deck.FrontName = rows.GroupBy(d => d.frontName).OrderByDescending(d => d.Count()).Select(d => d.Key)
+            deck.FrontName = rows.GroupBy(d => d.FrontName).OrderByDescending(d => d.Count()).Select(d => d.Key)
                 .First();
-            deck.BackName = rows.GroupBy(d => d.backName).OrderByDescending(d => d.Count()).Select(d => d.Key).First();
+            deck.BackName = rows.GroupBy(d => d.BackName).OrderByDescending(d => d.Count()).Select(d => d.Key).First();
 
             foreach (var row in rows)
             {
                 var card = new Card();
 
-                if (row.frontName == deck.FrontName)
+                if (row.FrontName == deck.FrontName)
                 {
-                    card.Front = row.front;
-                    card.Back = row.back;
+                    card.Front = row.Front;
+                    card.Back = row.Back;
                 }
                 else
                 {
-                    card.Front = row.back;
-                    card.Back = row.front;
+                    card.Front = row.Back;
+                    card.Back = row.Front;
                 }
 
                 deck.Cards.Add(card);
@@ -53,8 +53,6 @@ namespace FavoriteCards.App.Services
 
         private static Row ParseLine(string line)
         {
-            var card = new Card();
-
             var cells = line.Split(',');
 
             var frontName = cells[0];
@@ -64,22 +62,6 @@ namespace FavoriteCards.App.Services
             var back = cells[3];
 
             return new Row(frontName, backName, front, back);
-        }
-    }
-
-    internal struct Row
-    {
-        public string frontName;
-        public string backName;
-        public string front;
-        public string back;
-
-        public Row(string frontName, string backName, string front, string back)
-        {
-            this.frontName = frontName;
-            this.backName = backName;
-            this.front = front;
-            this.back = back;
         }
     }
 }

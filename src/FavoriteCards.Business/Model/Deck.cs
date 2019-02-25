@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FavoriteCards.App.Model
+namespace FavoriteCards.Business.Model
 {
     public class Deck
     {

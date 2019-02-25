@@ -1,6 +1,6 @@
 using System;
-using FavoriteCards.App.Model;
-using FavoriteCards.App.Services;
+using FavoriteCards.Business.Model;
+using FavoriteCards.Business.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 

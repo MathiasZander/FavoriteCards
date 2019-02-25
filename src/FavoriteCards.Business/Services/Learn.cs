@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using FavoriteCards.App.Model;
+using FavoriteCards.Business.Model;
 
-namespace FavoriteCards.App.Services
+namespace FavoriteCards.Business.Services
 {
     public class Learn
     {

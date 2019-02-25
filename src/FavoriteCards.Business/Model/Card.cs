@@ -1,4 +1,4 @@
-﻿namespace FavoriteCards.App.Model
+﻿namespace FavoriteCards.Business.Model
 {
     public class Card
     {
