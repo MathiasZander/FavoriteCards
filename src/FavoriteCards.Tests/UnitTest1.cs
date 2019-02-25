@@ -1,7 +1,6 @@
+using System.IO;
 using FavoriteCards.App.Services;
 using FluentAssertions;
-using System;
-using System.IO;
 using Xunit;
 
 namespace FavoriteCards.Tests
@@ -17,7 +16,7 @@ namespace FavoriteCards.Tests
 
             var result = parser.Parse(lines);
 
-            result.FrontName.Should().Equals("Englisch");
+            result.FrontName.Should().Be("Englisch");
             result.Cards.Should().Contain(c => c.Front == "coincidence");
             result.Cards.Should().Contain(c => c.Front == "vain");
         }

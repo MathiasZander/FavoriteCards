@@ -1,9 +1,7 @@
-﻿using FavoriteCards.App.Model;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using FavoriteCards.App.Model;
 
 namespace FavoriteCards.App.Services
 {
@@ -11,9 +9,9 @@ namespace FavoriteCards.App.Services
     {
         public Deck Parse(string csv)
         {
-            List<Row> rows = new List<Row>();
+            var rows = new List<Row>();
 
-            StringReader stringReader = new StringReader(csv);
+            var stringReader = new StringReader(csv);
             var line = stringReader.ReadLine();
 
             while (line != null)
@@ -28,12 +26,13 @@ namespace FavoriteCards.App.Services
             }
 
             var deck = new Deck();
-            deck.FrontName = rows.GroupBy(d => d.frontName).OrderByDescending(d => d.Count()).Select(d => d.Key).First();
+            deck.FrontName = rows.GroupBy(d => d.frontName).OrderByDescending(d => d.Count()).Select(d => d.Key)
+                .First();
             deck.BackName = rows.GroupBy(d => d.backName).OrderByDescending(d => d.Count()).Select(d => d.Key).First();
 
             foreach (var row in rows)
             {
-                Card card = new Card();
+                var card = new Card();
 
                 if (row.frontName == deck.FrontName)
                 {

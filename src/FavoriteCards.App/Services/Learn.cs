@@ -1,8 +1,5 @@
-﻿using FavoriteCards.App.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
+using FavoriteCards.App.Model;
 
 namespace FavoriteCards.App.Services
 {
@@ -22,7 +19,6 @@ namespace FavoriteCards.App.Services
 
         public void SetResult(string front, bool successful)
         {
-
         }
     }
 }
