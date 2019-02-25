@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FavoriteCards.App\FavoriteCards.App.csproj" />
+    <ProjectReference Include="..\FavoriteCards.Business\FavoriteCards.Business.csproj" />
   </ItemGroup>
 
   <ItemGroup>
