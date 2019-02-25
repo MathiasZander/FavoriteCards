@@ -8,8 +8,8 @@ namespace FavoriteCards.App
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            // Example of a data service
             services.AddSingleton<CsvParser>();
+            services.AddSingleton<Learn>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

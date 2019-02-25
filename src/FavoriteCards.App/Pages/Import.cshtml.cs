@@ -11,6 +11,9 @@ namespace FavoriteCards.App.Pages
         [Inject]
         public CsvParser Parser { get; set; }
 
+        [Inject]
+        public Learn Learn { get; set; }
+
         private static ImportModel _instance;
 
         public ImportModel()
@@ -21,6 +24,7 @@ namespace FavoriteCards.App.Pages
         private void Parse(string csv)
         {
             Deck = Parser.Parse(csv);
+            Learn.SetDeck(Deck);
             StateHasChanged();
         }
 
