@@ -3,4 +3,9 @@
 
 <h1>@Word</h1>
 
-<button class="btn btn-primary" onclick="@Toggle"></button>
+<button class="btn btn-primary" onclick="@Toggle"><span class="oi oi-transfer" aria-hidden="true"></span></button>
+@if (Answer)
+{
+<button class="btn btn-primary" onclick="@Correct"><span class="oi oi-thumbs-up" aria-hidden="true"></span></button>
+<button class="btn btn-primary" onclick="@Wrong"><span class="oi oi-thumbs" aria-hidden="true"></span></button>
+}

@@ -7,7 +7,7 @@ namespace FavoriteCards.App.Pages
     public class LearnDeckModel : ComponentBase
     {
         private Card _card;
-        private bool _front = true;
+        public bool Answer { get; private set; }
 
         [Inject] public Learn Learn { get; set; }
 
@@ -15,14 +15,23 @@ namespace FavoriteCards.App.Pages
 
         public void Toggle()
         {
-            if (_front)
-                Word = _card.Front;
-            else
-                Word = _card.Back;
+            Word = Answer ? _card.Back : _card.Front;
 
             StateHasChanged();
 
-            _front = !_front;
+            Answer = !Answer;
+        }
+
+        public void Correct()
+        {
+            Learn.SetResult(_card.Front, true);
+            _card = Learn.GetNextCard();
+        }
+
+        public void Wrong()
+        {
+            Learn.SetResult(_card.Front, false);
+            _card = Learn.GetNextCard();
         }
 
         protected override void OnInit()
