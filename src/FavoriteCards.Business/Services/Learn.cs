@@ -7,8 +7,14 @@ namespace FavoriteCards.Business.Services
 {
     public class Learn
     {
+        private readonly IDateTimeProvider _dateTime;
         private Deck _deck = new Deck();
         private readonly List<List<Card>> _openByLevel = new List<List<Card>>( );
+
+        public Learn(IDateTimeProvider dateTime)
+        {
+            _dateTime = dateTime;
+        }
 
         public void SetDeck(Deck deck)
         {
@@ -20,8 +26,8 @@ namespace FavoriteCards.Business.Services
                 if (previousLevel != TimeSpan.MinValue)
                 {
                     var cards = _deck.Cards
-                        .Where(c => c.LastTry + previousLevel > DateTime.Now)
-                        .Where(c => c.LastTry + level < DateTime.Now)
+                        .Where(c => c.LastTry + previousLevel > _dateTime.Now)
+                        .Where(c => c.LastTry + level < _dateTime.Now)
                         .ToList();
                     _openByLevel.Add(cards);
                 }
@@ -30,7 +36,7 @@ namespace FavoriteCards.Business.Services
             }
 
             var highestLevel = _deck.Cards
-                .Where(c => c.LastTry + _deck.Settings.IntervalLevels.Last() <= DateTime.Now)
+                .Where(c => c.LastTry + _deck.Settings.IntervalLevels.Last() <= _dateTime.Now)
                 .ToList();
             _openByLevel.Add(highestLevel);
 
@@ -60,7 +66,7 @@ namespace FavoriteCards.Business.Services
             {
                 if (successful)
                 {
-                    card.Successful.Add(DateTime.Now);
+                    card.Successful.Add(_dateTime.Now);
                     if (card.Level < _deck.Settings.IntervalLevels.Count)
                     {
                         card.Level++;
@@ -68,12 +74,14 @@ namespace FavoriteCards.Business.Services
                 }
                 else
                 {
-                    card.Failed.Add(DateTime.Now);
+                    card.Failed.Add(_dateTime.Now);
                     if (card.Level > 0)
                     {
                         card.Level--;
                     }
                 }
+
+                card.LastTry = _dateTime.Now;
             }
         }
     }

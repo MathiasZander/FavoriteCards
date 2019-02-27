@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using FavoriteCards.Business.Services;
 using FluentAssertions;
@@ -23,14 +24,21 @@ namespace FavoriteCards.Tests
         [Fact]
         public void LearnTest()
         {
+            var dateTime = new DateTimeProviderStub(DateTime.Now);
+
             var parser = new CsvParser();
             var lines = File.ReadAllText("TestData/Export.csv");
             var deck = parser.Parse(lines);
 
-            var learn = new Learn();
+            var learn = new Learn(dateTime);
             learn.SetDeck(deck);
 
+            var card = learn.GetNextCard();
+            learn.SetResult(card.Front, true);
 
+            card.LastTry.Should().Be(dateTime.Now);
+            card.Successful.Should().HaveCount(1);
+            card.Failed.Should().BeEmpty();
         }
     }
 }
