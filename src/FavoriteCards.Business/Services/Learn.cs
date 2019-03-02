@@ -20,6 +20,13 @@ namespace FavoriteCards.Business.Services
         {
             _deck = deck;
 
+            UpdateLevels();
+        }
+
+        public void UpdateLevels()
+        {
+            _openByLevel.Clear();
+
             var previousLevel = TimeSpan.MinValue;
             foreach (var level in _deck.Settings.IntervalLevels)
             {
