@@ -10,6 +10,7 @@ namespace FavoriteCards.App
         {
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddSingleton<ILocalStorage, LocalStorage>();
+            services.AddSingleton<SettingsStore>();
             services.AddSingleton<CsvParser>();
             services.AddSingleton<Learn>();
         }

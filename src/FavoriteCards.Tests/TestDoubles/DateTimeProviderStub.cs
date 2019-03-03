@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using FavoriteCards.Business.Services;
 
-namespace FavoriteCards.Tests
+namespace FavoriteCards.Tests.TestDoubles
 {
     public class DateTimeProviderStub : IDateTimeProvider
     {

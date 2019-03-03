@@ -1,8 +1,8 @@
 using System;
 using System.IO;
-using System.Threading;
 using FavoriteCards.Business.Model;
 using FavoriteCards.Business.Services;
+using FavoriteCards.Tests.TestDoubles;
 using FluentAssertions;
 using Xunit;
 
@@ -10,20 +10,38 @@ namespace FavoriteCards.Tests
 {
     public class LearnTest
     {
-        private readonly DateTimeProviderStub _dateTime;
-        private readonly Learn _learn;
-        private readonly Deck _deck;
-
         public LearnTest()
         {
             _dateTime = new DateTimeProviderStub(DateTime.Now);
 
             var parser = new CsvParser();
             var lines = File.ReadAllText("TestData/Export.csv");
-            _deck = parser.Parse(lines);
+            var deck = parser.Parse(lines);
 
             _learn = new Learn(_dateTime);
-            _learn.SetDeck(_deck);
+            _learn.SetDeck(deck);
+        }
+
+        private readonly DateTimeProviderStub _dateTime;
+        private readonly Learn _learn;
+
+        private Card Learn(bool successful, int durationInSeconds = 1)
+        {
+            var card = _learn.GetNextCard();
+
+            _dateTime.AddSeconds(durationInSeconds);
+            _learn.SetResult(card.Front, successful);
+
+            return card;
+        }
+
+        [Fact]
+        public void GetNextCard_ShouldNotGiveSameCardTwice()
+        {
+            var card1 = _learn.GetNextCard();
+            var card2 = _learn.GetNextCard();
+
+            card1.Front.Should().NotBe(card2.Front);
         }
 
 
@@ -39,15 +57,6 @@ namespace FavoriteCards.Tests
         }
 
         [Fact]
-        public void GetNextCard_ShouldNotGiveSameCardTwice()
-        {
-            var card1 = _learn.GetNextCard();
-            var card2 = _learn.GetNextCard();
-
-            card1.Front.Should().NotBe(card2.Front);
-        }
-
-        [Fact]
         public void Successful_ShouldHaveRightCount()
         {
             Learn(true);
@@ -57,16 +66,6 @@ namespace FavoriteCards.Tests
             var card = Learn(true);
 
             card.Successful.Should().HaveCount(2);
-        }
-
-        private Card Learn(bool successful, int durationInSeconds = 1)
-        {
-            var card = _learn.GetNextCard();
-
-            _dateTime.AddSeconds(durationInSeconds);
-            _learn.SetResult(card.Front, successful);
-
-            return card;
         }
     }
 }

@@ -22,8 +22,8 @@ namespace FavoriteCards.Business.Services
 
             var serializedData = await JSRuntime.Current.InvokeAsync<string>("LocalStorage.GetItem", identifier);
             Console.WriteLine(serializedData);
-            if (serializedData == null)
-                serializedData = String.Empty;
+            //if (serializedData == null)
+            //    serializedData = String.Empty;
            
             return Json.Deserialize<T>(serializedData);
         }

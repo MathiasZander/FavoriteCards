@@ -14,6 +14,9 @@ namespace FavoriteCards.App.Pages
         [Inject]
         public Learn Learn { get; set; }
 
+        [Inject]
+        public SettingsStore SettingsStore { get; set; }
+
         private static ImportModel _instance;
 
         public ImportModel()
@@ -21,11 +24,15 @@ namespace FavoriteCards.App.Pages
             _instance = this;
         }
 
-        private void Parse(string csv)
+        private async void Parse(string csv)
         {
             Deck = Parser.Parse(csv);
             Learn.SetDeck(Deck);
             StateHasChanged();
+
+            var settings = await SettingsStore.Read();
+            settings.Decks.Add(Deck);
+            SettingsStore.Write(settings);
         }
 
         protected Deck Deck { get; private set; } = new Deck();
